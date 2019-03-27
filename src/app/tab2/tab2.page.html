@@ -1,9 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Two
-    </ion-title>
-  </ion-toolbar>
+<ion-header padding>
+  <ion-title>
+    Agregue su gasto
+  </ion-title>
+  <ion-item>
+    <ion-label>Salida: </ion-label>
+    <ion-input type="number" [(ngModel)]="salida"></ion-input>
+  </ion-item>
+
+
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content padding>
+  <ion-button (click)="saveItem()">Agregar</ion-button>
+  <ion-button (click)="resetSalidas()">Resetear</ion-button>
+  <ion-list>
+    <ion-item>
+      <strong>
+        <ion-label>Total de gastos: {{totalSalidas}}</ion-label>
+      </strong>
+    </ion-item>
+    <ion-item *ngFor="let salida of salidas"> {{salida}} </ion-item>
+  </ion-list>
+</ion-content>
