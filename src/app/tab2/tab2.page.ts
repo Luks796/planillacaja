@@ -14,16 +14,31 @@ export class Tab2Page {
   constructor(private service: CajaService) { }
 
   ngOnInit() {
-    this.service.getMovimientos().then(x => this.salidas = x)
+    this.service.getMovimientos().then((x) => {
+      x.forEach(element => {
+        if (element < 0) {
+          this.salidas.push((element) - (element * 2));
+        }
+      });
+    });    
+    this.calcularTotal();
   }
 
   saveItem() {
-    this.service.agregarMovimiento(this.salida);
-    this.salidas.push(this.salida);    
+    this.service.agregarMovimiento(-this.salida).then(() =>{
+      this.salidas.push(this.salida);
+      this.calcularTotal();
+    });
+    
   }
 
-  resetSalidas(){
+  calcularTotal() {
+    this.service.sumarMovimientos().then((x) => this.totalSalidas = x);
+  }
+
+  resetSalidas() {
     this.service.reset();
+    this.totalSalidas = 0;
     this.salidas = [];
   }
 }

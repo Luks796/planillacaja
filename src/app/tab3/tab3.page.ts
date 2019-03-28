@@ -18,11 +18,19 @@ export class Tab3Page {
   public _2: number = 0;
   public _1: number = 0;
   public _0_5: number = 0;
-  public _0_25: number = 0;  
+  public _0_25: number = 0;
+  public billetes : Array<number> = [];
+  public total: number = 0;
 
   constructor(private service: CajaService) { }
   
   ngOnInit(){
-    this.service.sumarMovimientos()
+    this.service.getEfectivo();
+  }
+
+  calcularEfectivo(event, value){       
+    this.service.agregarBillete(this.billetes);
+    this.service.calculateCash(event.srcElement.value, value); 
+    this.service.sumarEfectivo().then((x) => this.total = x);
   }
 }

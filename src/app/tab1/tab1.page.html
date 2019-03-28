@@ -5,13 +5,14 @@
 
   <ion-item>
     <ion-label>Venta: </ion-label>
-    <ion-input type="number" [(ngModel)]="venta"></ion-input>
+    <ion-input type="number" [(ngModel)]="venta" min = "1"></ion-input>    
   </ion-item>
 </ion-header>
 
 <ion-content padding>
   <ion-button (click)="saveItem()">Agregar</ion-button>
   <ion-button (click)="resetVentas()">Resetear</ion-button>
+  <ion-button (click)="calcularTotal()">Sumar</ion-button>
   <ion-list>
     <ion-item>
       <strong>
