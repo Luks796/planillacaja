@@ -9,18 +9,12 @@ import { CajaService } from '../caja-service.service';
 export class Tab2Page {
   salida: number;
   salidas: Array<number> = [];
-  totalSalidas: number = 0;
+  totalSalidas;
 
   constructor(private service: CajaService) { }
 
   ngOnInit() {
-    this.service.getMovimientos().then((x) => {
-      x.forEach(element => {
-        if (element < 0) {
-          this.salidas.push((element) - (element * 2));
-        }
-      });
-    });    
+    this.service.getMovimientosSalidas().then((x) => this.salidas = x);
     this.calcularTotal();
   }
 
@@ -28,17 +22,17 @@ export class Tab2Page {
     this.service.agregarMovimiento(-this.salida).then(() =>{
       this.salidas.push(this.salida);
       this.calcularTotal();
-    });
-    
+    });    
   }
 
-  calcularTotal() {
-    this.service.sumarMovimientos().then((x) => this.totalSalidas = x);
+  calcularTotal() {    
+    this.service.getSumaSalidas().then((x) => this.totalSalidas = x);
   }
 
   resetSalidas() {
     this.service.reset();
     this.totalSalidas = 0;
+    this.salida = 0;
     this.salidas = [];
   }
 }

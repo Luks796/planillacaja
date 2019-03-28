@@ -14,32 +14,37 @@ export class Tab1Page {
   constructor(private service: CajaService) { }
 
   ngOnInit() {
-    // this.service.getMovimientos().then((x) => {
-    //   x.forEach(element => {
-    //     if (element > 0) {
-    //       this.ventas.push(element);
-    //     }
-    //   });
-    // });
-    this.service.getMovimientosEntradas(this.ventas);
+
+    this.service.getMovimientosEntradas().then((x) => this.ventas= x );
     this.calcularTotal();
   }
 
   saveItem() {
-    this.service.agregarMovimiento(this.venta).then(() => {
-      this.ventas.push(this.venta);
-      this.calcularTotal();
-    });
+    if (this.isValidForm()){
+      this.service.agregarMovimiento(this.venta).then(() => {
+        this.ventas.push(this.venta);
+        this.calcularTotal();
+      });
+    }
   }
 
-  calcularTotal() {
-    // this.service.sumarMovimientos().then((x) => this.totalVentas = x);
-    this.service.getSumaEntradas(this.ventas);
+  calcularTotal() {    
+    this.service.getSumaEntradas().then((x) => this.totalVentas = x);
   }
 
   resetVentas() {
     this.service.reset();
     this.totalVentas = 0;
+    this.venta = 0;
     this.ventas = [];
+  }
+
+  isValidForm(){
+    if(this.venta <= 0){
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 }

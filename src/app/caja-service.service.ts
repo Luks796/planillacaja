@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CajaService {
   private readonly movimientoskey = 'movimientos';
-  private readonly efectivokey = 'efectivo';
-  movs: Array<any> = [];
+  private readonly efectivokey = 'efectivo';    
   cash: Array<any> = [];
 
   constructor(private storage: Storage) { }
@@ -20,18 +19,18 @@ export class CajaService {
     });
   }
 
-  async agregarBillete(value){
-    await this.getEfectivo().then(x => {
+  async agregarBillete(value) {
+    await this.getEfectivo().then((x) => {
       x.push(value);
       this.storage.set(this.efectivokey, x);
-    })
-  } 
+    });
+  }
 
-  getMovimientos(): Promise<any> {
+  getMovimientos(): Promise<any> {    
     return this.storage.get(this.movimientoskey);
   }
 
-  getEfectivo(): Promise <any>{
+  getEfectivo(): Promise<any> {
     return this.storage.get(this.efectivokey);
   }
 
@@ -40,9 +39,7 @@ export class CajaService {
   }
 
   calculateCash(event, value) {
-    var tot = event * value;
-    this.cash.push(tot);    
-    // return this.cash;
+    this.cash.push(event * value);
   }
 
   async sumarMovimientos(): Promise<number> {
@@ -63,38 +60,58 @@ export class CajaService {
   async sumarEfectivo(): Promise<number> {
     var suma = 0;
     await this.storage.get(this.efectivokey).then((val) => {
-      val.forEach(element => { 
+      val.forEach(element => {
         suma += element;
       });
     });
     return suma;
   }
 
-  getMovimientosEntradas(ventas) {
-    this.getMovimientos().then((x) => {
+  async getMovimientosEntradas() {
+    var ventas = [];
+    await this.getMovimientos().then((x) => {
       x.forEach(element => {
         if (element > 0) {
           ventas.push(element);
         }
       });
     });
+    return ventas;
   }
 
-  getMovimientosSalidas(salidas) {
-    this.getMovimientos().then((x) => {
+  async getMovimientosSalidas() {
+    var salidas = [];
+    await this.getMovimientos().then((x) => {
       x.forEach(element => {
         if (element < 0) {
           salidas.push((element) - (element * 2));
         }
       });
     });
+    return salidas;
   }
 
-  getSumaEntradas(ventas) {
-
+  async getSumaEntradas() {
+    var suma = 0;
+    await this.storage.get(this.movimientoskey).then((val) => {
+      val.forEach(element => {
+        if (element > 0) {
+          suma += element;
+        }
+      });
+    });
+    return suma;
   }
 
-  getSumaSalidas(salidas) {
-
+  async getSumaSalidas() {
+    var suma = 0;
+    await this.storage.get(this.movimientoskey).then((val) => {
+      val.forEach(element => {
+        if (element < 0) {
+          suma += (element) - (element * 2);
+        }
+      });
+    });
+    return suma;
   }
 }

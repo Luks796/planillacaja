@@ -7,7 +7,7 @@ import { CajaService } from '../caja-service.service';
   styleUrls: ['tab4.page.scss']
 })
 export class Tab4Page {
-  cambio: number;
+  cambio: number = 0;
   totalVentas;
   totalSalidas;
   subtotal;
@@ -16,6 +16,8 @@ export class Tab4Page {
   constructor(private service: CajaService) { }
 
   ngOnInit() {
-    
+    this.service.getSumaSalidas().then((x) => this.totalSalidas = x);
+    this.service.getSumaEntradas().then((x) => this.totalVentas = x);
+    this.subtotal = this.cambio - this.totalVentas;
   }
 }
