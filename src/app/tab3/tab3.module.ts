@@ -9,11 +9,11 @@ import { Tab3Page } from './tab3.page';
   imports: [
     IonicModule,
     CommonModule,
-    FormsModule,
+    FormsModule,    
     RouterModule.forChild([{ path: '', component: Tab3Page }])
   ],
   declarations: [
-    Tab3Page, 
-  ]
+    Tab3Page,     
+  ],
 })
 export class Tab3PageModule {}

@@ -7,14 +7,13 @@ import { CajaService } from '../caja-service.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  ventas: Array<number> = [];
   venta: number;
+  ventas: Array<number> = [];
   totalVentas;
 
   constructor(private service: CajaService) { }
 
-  ngOnInit() {
-
+  ngOnInit() {    
     this.service.getMovimientosEntradas().then((x) => this.ventas= x );
     this.calcularTotal();
   }

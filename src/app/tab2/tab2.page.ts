@@ -14,8 +14,11 @@ export class Tab2Page {
   constructor(private service: CajaService) { }
 
   ngOnInit() {
-    this.service.getMovimientosSalidas().then((x) => this.salidas = x);
-    this.calcularTotal();
+    // this.service.ngOnInit();
+    this.service.getMovimientosSalidas().then((x) =>{
+       this.salidas = x;
+       this.calcularTotal();
+      });    
   }
 
   saveItem() {

@@ -8,17 +8,25 @@ import { Billete } from '../billete';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {  
-  public total: number = 0;
-  billetes : Billete [];
-
+  public totales: number = 0;   
+  
   constructor(private service: CajaService) { }
   
-  ngOnInit(){    
+  ngOnInit(){  
+    this.agregarBillete(2,2);
     this.service.getEfectivo();     
+  }
+
+  agregarBillete(cantidad: number, valor: number ){
+    var  cuentaDeBilletes : Billete = {
+      cantidad : cantidad,
+      valor : valor,        
+    };
+   console.log(cuentaDeBilletes.total) ;
   }
 
   calcularEfectivo(event, value){    
     this.service.calculateCash(event.srcElement.value, value); 
-    this.service.sumarEfectivo().then((x) => this.total = x);
+    this.service.sumarEfectivo().then((x) => this.totales = x);
   }
 }

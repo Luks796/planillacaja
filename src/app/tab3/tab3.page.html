@@ -10,11 +10,27 @@
 
 <ion-content padding>
   <ion-list>
+    <ion-list-header>Total de efectivo</ion-list-header>
     <ion-item>
-      <strong>
-        <ion-label>Total: {{total}}</ion-label>
-      </strong>
+      <ion-label>Cantidad de billetes </ion-label>
+      <ion-input type="number" placeholder="$$$$$"></ion-input>
     </ion-item>
-    <!-- <ion-item *ngFor="let billete of billetes"> HOLA</ion-item> -->
+    <ion-item>
+      <ion-label>Selecciona un billete</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Billete">
+        <ion-select-option value="1000">$1000</ion-select-option>
+        <ion-select-option value="500">$500</ion-select-option>
+        <ion-select-option value="200">$200</ion-select-option>
+        <ion-select-option value="100">$100</ion-select-option>
+        <ion-select-option value="50">$50</ion-select-option>
+        <ion-select-option value="20">$20</ion-select-option>
+        <ion-select-option value="10">$10</ion-select-option>
+        <ion-select-option value="5">$5</ion-select-option>
+        <ion-select-option value="2">$2</ion-select-option>
+        <ion-select-option value="1">$1</ion-select-option>
+        <ion-select-option value="0.5">$0.5</ion-select-option>
+        <ion-select-option value="0.25">$0.25</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
 </ion-content>

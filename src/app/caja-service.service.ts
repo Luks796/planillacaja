@@ -7,10 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class CajaService {
   private readonly movimientoskey = 'movimientos';
-  private readonly efectivokey = 'efectivo';    
+  private readonly efectivokey = 'efectivo';
   cash: Array<any> = [];
 
   constructor(private storage: Storage) { }
+
+  ngOnInit() {
+    this.init();
+  }
+
+  async init() {
+    await this.storage.get(this.movimientoskey).then((x) => {
+      if (x == null) {
+        this.storage.set(this.movimientoskey, []).then(() => {
+          this.storage.get(this.movimientoskey);
+        });
+      }
+    });
+  }
 
   async agregarMovimiento(value) {
     await this.getMovimientos().then(x => {
@@ -26,7 +40,7 @@ export class CajaService {
     });
   }
 
-  getMovimientos(): Promise<any> {    
+  getMovimientos(): Promise<any> {
     return this.storage.get(this.movimientoskey);
   }
 
@@ -60,9 +74,14 @@ export class CajaService {
   async sumarEfectivo(): Promise<number> {
     var suma = 0;
     await this.storage.get(this.efectivokey).then((val) => {
-      val.forEach(element => {
-        suma += element;
-      });
+      if (val == null) {
+        this.init();
+      }
+      else {
+        val.forEach(element => {
+          suma += element;
+        });
+      }
     });
     return suma;
   }
@@ -70,11 +89,16 @@ export class CajaService {
   async getMovimientosEntradas() {
     var ventas = [];
     await this.getMovimientos().then((x) => {
-      x.forEach(element => {
-        if (element > 0) {
-          ventas.push(element);
-        }
-      });
+      if (x == null) {
+        this.init();
+      }
+      else {
+        x.forEach(element => {
+          if (element > 0) {
+            ventas.push(element);
+          }
+        });
+      }
     });
     return ventas;
   }
@@ -82,11 +106,16 @@ export class CajaService {
   async getMovimientosSalidas() {
     var salidas = [];
     await this.getMovimientos().then((x) => {
-      x.forEach(element => {
-        if (element < 0) {
-          salidas.push((element) - (element * 2));
-        }
-      });
+      if (x == null) {
+        this.init();
+      }
+      else {
+        x.forEach(element => {
+          if (element < 0) {
+            salidas.push((element) - (element * 2));
+          }
+        });
+      }
     });
     return salidas;
   }
@@ -94,11 +123,16 @@ export class CajaService {
   async getSumaEntradas() {
     var suma = 0;
     await this.storage.get(this.movimientoskey).then((val) => {
-      val.forEach(element => {
-        if (element > 0) {
-          suma += element;
-        }
-      });
+      if (val == null) {
+        this.init();
+      }
+      else {
+        val.forEach(element => {
+          if (element > 0) {
+            suma += element;
+          }
+        });
+      }
     });
     return suma;
   }
