@@ -18,11 +18,11 @@ export class Tab3Page {
   }
 
   agregarBillete(cantidad: number, valor: number ){
-    var  cuentaDeBilletes : Billete = {
-      cantidad : cantidad,
-      valor : valor,        
-    };
-   console.log(cuentaDeBilletes.total) ;
+  //   var  cuentaDeBilletes : Billete = {
+  //     cantidad : cantidad,
+  //     valor : valor,        
+  //   };
+  //  console.log(cuentaDeBilletes.total) ;
   }
 
   calcularEfectivo(event, value){    

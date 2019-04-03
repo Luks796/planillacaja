@@ -7,7 +7,7 @@ import { CajaService } from '../caja-service.service';
   styleUrls: ['tab4.page.scss']
 })
 export class Tab4Page {
-  cambio: number = 0;
+  cambio = 0;
   totalVentas;
   subtotal;
   totalSalidas;
@@ -17,12 +17,24 @@ export class Tab4Page {
 
   ngOnInit() {
     this.service.getSumaSalidas().then((x) => this.totalSalidas = x);
-    this.service.getSumaEntradas().then((x) => this.totalVentas = x);
-    //this.service.getSumaEfectivo().then((x) => this.totalEfectivo = x);
+    this.service.getSumaEntradas()
+      .then((x) => this.totalVentas = x)
+      .finally(() => {
+        this.cierreTotales();
+      });
+
+    //this.service.getSumaEfectivo().then((x) => this.totalEfectivo = x);    
   }
 
-  cierreTotales(){
-    this.subtotal = this.cambio - this.totalVentas;
+  cierreTotales() {
+    this.subtotal = this.cambio + this.totalVentas;
     this.total = this.subtotal - this.totalSalidas;
+  }
+
+  guardar() {
+    this.service.agregarCambio(this.cambio).then((x) => {
+      console.log(x);
+      this.cambio = x;
+    });
   }
 }

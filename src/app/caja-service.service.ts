@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class CajaService {
   private readonly movimientoskey = 'movimientos';
   private readonly efectivokey = 'efectivo';
+  private readonly cambiokey = 'cambio';
   cash: Array<any> = [];
 
   constructor(private storage: Storage) { }
@@ -26,6 +27,16 @@ export class CajaService {
     });
   }
 
+  async agregarCambio(value){
+    await this.getCambio()
+      .then(() => {
+        this.storage.set(this.cambiokey, value);
+      });
+    this.storage.get(this.cambiokey).then((x) => {
+      return x;
+    })
+  }
+
   async agregarMovimiento(value) {
     await this.getMovimientos().then(x => {
       x.push(value);
@@ -38,6 +49,10 @@ export class CajaService {
       x.push(value);
       this.storage.set(this.efectivokey, x);
     });
+  }
+
+  getCambio(): Promise<any> {
+    return this.storage.get(this.cambiokey);
   }
 
   getMovimientos(): Promise<any> {
