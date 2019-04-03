@@ -16,25 +16,30 @@ export class Tab4Page {
   constructor(private service: CajaService) { }
 
   ngOnInit() {
+    this.service.getMovimientoCambio().then((x) => {
+      this.cambio = x;
+    });;
     this.service.getSumaSalidas().then((x) => this.totalSalidas = x);
     this.service.getSumaEntradas()
       .then((x) => this.totalVentas = x)
       .finally(() => {
         this.cierreTotales();
       });
-
+    
     //this.service.getSumaEfectivo().then((x) => this.totalEfectivo = x);    
   }
 
-  cierreTotales() {
+  cierreTotales() {    
     this.subtotal = this.cambio + this.totalVentas;
     this.total = this.subtotal - this.totalSalidas;
+    this.guardarCambio();
   }
 
-  guardar() {
-    this.service.agregarCambio(this.cambio).then((x) => {
-      console.log(x);
-      this.cambio = x;
+  guardarCambio() {
+    this.service.agregarCambio(this.cambio).then(() => {
+      this.service.getMovimientoCambio().then((x) => {
+        this.cambio = x;
+      });
     });
   }
 }

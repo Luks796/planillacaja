@@ -27,14 +27,11 @@ export class CajaService {
     });
   }
 
-  async agregarCambio(value){
+  async agregarCambio(value) {
     await this.getCambio()
       .then(() => {
         this.storage.set(this.cambiokey, value);
       });
-    this.storage.get(this.cambiokey).then((x) => {
-      return x;
-    })
   }
 
   async agregarMovimiento(value) {
@@ -101,6 +98,14 @@ export class CajaService {
     return suma;
   }
 
+  async getMovimientoCambio() {
+    var cambio = 0;
+    await this.getCambio().then((x) => {
+      cambio = x;
+    });
+    return cambio;
+  }
+
   async getMovimientosEntradas() {
     var ventas = [];
     await this.getMovimientos().then((x) => {
@@ -155,11 +160,17 @@ export class CajaService {
   async getSumaSalidas() {
     var suma = 0;
     await this.storage.get(this.movimientoskey).then((val) => {
-      val.forEach(element => {
-        if (element < 0) {
-          suma += (element) - (element * 2);
-        }
-      });
+      if (val == null) {
+        this.init();
+      }
+      else {
+        val.forEach(element => {
+          if (element < 0) {
+            suma += (element) - (element * 2);
+          }
+        });
+      }
+
     });
     return suma;
   }
