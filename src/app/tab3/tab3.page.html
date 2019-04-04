@@ -1,23 +1,16 @@
 <ion-header padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col><b>Billetes</b></ion-col>
-      <ion-col><b>Valor</b></ion-col>
-      <ion-col><b>Plata</b></ion-col>
-    </ion-row>
-  </ion-grid>
+ <ion-title>Arqueo de caja</ion-title>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-list-header>Total de efectivo</ion-list-header>
+  <ion-list>    
     <ion-item>
       <ion-label>Cantidad de billetes </ion-label>
-      <ion-input type="number" placeholder="$$$$$"></ion-input>
+      <ion-input type="number" placeholder="$$$$$" (keyup)="keyup(cantidad)" [(ngModel)]="cantidad"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Selecciona un billete</ion-label>
-      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Billete">
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" (ionChange)="alerta($event)" placeholder="Billete">
         <ion-select-option value="1000">$1000</ion-select-option>
         <ion-select-option value="500">$500</ion-select-option>
         <ion-select-option value="200">$200</ion-select-option>
@@ -33,4 +26,102 @@
       </ion-select>
     </ion-item>
   </ion-list>
+  <ion-grid padding>
+    <ion-row>
+      <ion-col size="6">
+        $1000
+      </ion-col>
+      <ion-col size="6">
+         2000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $500
+      </ion-col>
+      <ion-col size="6">
+         3500
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $200
+      </ion-col>
+      <ion-col size="6">
+          12000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $100
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $50
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $20
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $10
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $5
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $2
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $1
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $0.5
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        $0.25
+      </ion-col>
+      <ion-col size="6">
+        5000
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

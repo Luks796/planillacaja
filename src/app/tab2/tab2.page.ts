@@ -13,22 +13,23 @@ export class Tab2Page {
 
   constructor(private service: CajaService) { }
 
-  ngOnInit() {
-    // this.service.ngOnInit();
-    this.service.getMovimientosSalidas().then((x) =>{
-       this.salidas = x;
-       this.calcularTotal();
-      });    
+  ngOnInit() {    
+    this.service.getMovimientosSalidas().then((x) => {
+      this.salidas = x;
+      this.calcularTotal();
+    });
   }
 
   saveItem() {
-    this.service.agregarMovimiento(-this.salida).then(() =>{
-      this.salidas.push(this.salida);
-      this.calcularTotal();
-    });    
+    if (this.isValidForm()) {    
+      this.service.agregarMovimiento(-this.salida).then(() => {
+        this.salidas.push(this.salida);
+        this.calcularTotal();
+      });
+    }
   }
 
-  calcularTotal() {    
+  calcularTotal() {
     this.service.getSumaSalidas().then((x) => this.totalSalidas = x);
   }
 
@@ -37,5 +38,14 @@ export class Tab2Page {
     this.totalSalidas = 0;
     this.salida = 0;
     this.salidas = [];
+  }
+
+  isValidForm() {
+    if (this.salida <= 0 || this.salida == undefined) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 }

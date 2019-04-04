@@ -7,26 +7,40 @@ import { Billete } from '../billete';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page {  
-  public totales: number = 0;   
-  
+export class Tab3Page {
+  public totales: number = 0;
+  cantidad;
+  valor;
   constructor(private service: CajaService) { }
-  
-  ngOnInit(){  
-    this.agregarBillete(2,2);
-    this.service.getEfectivo();     
+
+  ngOnInit() {
+
+    this.service.getEfectivo();
   }
 
-  agregarBillete(cantidad: number, valor: number ){
-  //   var  cuentaDeBilletes : Billete = {
-  //     cantidad : cantidad,
-  //     valor : valor,        
-  //   };
-  //  console.log(cuentaDeBilletes.total) ;
+  agregarBillete(valor: number, cantidad: number) {
+    var cuentaDeBilletes: Billete = {
+      cantidad: cantidad,
+      valor: valor,
+    };
+    var total = cuentaDeBilletes.cantidad * cuentaDeBilletes.valor;
+    console.log(total);
   }
 
-  calcularEfectivo(event, value){    
-    this.service.calculateCash(event.srcElement.value, value); 
+  calcularEfectivo(event, value) {
+    this.service.calculateCash(event.srcElement.value, value);
     this.service.sumarEfectivo().then((x) => this.totales = x);
+  }
+
+  alerta(event) {
+    this.valor = event.detail.value;
+    if (this.cantidad != undefined) {
+      this.agregarBillete(this.valor, this.cantidad);
+    }
+  }
+  keyup(cantidad) {
+    if (this.valor != undefined) {
+      this.agregarBillete(this.valor, cantidad);
+    }
   }
 }

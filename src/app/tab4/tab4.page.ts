@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CajaService } from '../caja-service.service';
+import { Tab1Page } from '../tab1/tab1.page';
 
 @Component({
   selector: 'app-tab4',
@@ -13,6 +14,7 @@ export class Tab4Page {
   totalSalidas;
   total;
   totalEfectivo;
+  tab1: Tab1Page;
   constructor(private service: CajaService) { }
 
   ngOnInit() {
@@ -41,5 +43,10 @@ export class Tab4Page {
         this.cambio = x;
       });
     });
+  }
+
+  newDay(){
+    this.service.reset();
+    this.ngOnInit();
   }
 }

@@ -2,22 +2,65 @@
   <ion-title>
     Agregue su venta
   </ion-title>
-
   <ion-item>
     <ion-label>Venta: </ion-label>
-    <ion-input type="number" [(ngModel)]="venta" min = "1"></ion-input>    
+    <ion-input type="number" [(ngModel)]="venta" clearInput ></ion-input>
+    <ion-icon name="add-circle-outline" size="large" (click)="saveItem()"></ion-icon>
   </ion-item>
 </ion-header>
 
 <ion-content padding>
-  <ion-button (click)="saveItem()">Agregar</ion-button>
-  <ion-button (click)="resetVentas()">Resetear</ion-button>  
   <ion-list>
-    <ion-item>
-      <strong>
-        <ion-label>Total de ventas: {{totalVentas}}</ion-label>
-      </strong>
-    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <strong>
+            <ion-label>Total de ventas: {{totalVentas}}</ion-label>
+          </strong>
+        </ion-col>
+        <ion-col size="2" offset="2">
+          <ion-icon name="refresh" size="large" (click)="resetVentas()"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-item *ngFor="let venta of ventas">{{venta}}</ion-item>
   </ion-list>
 </ion-content>
+<!-- 
+<ion-header padding>
+  <ion-title>
+    Agregue su venta
+  </ion-title>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Venta: </ion-label>
+          <ion-input type="number" [(ngModel)]="venta" min="1"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1" offset="4">
+        <ion-icon name="add-circle-outline" size="large" (click)="saveItem()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <strong>
+            <ion-label>Total de ventas: {{totalVentas}}</ion-label>
+          </strong>
+        </ion-col>
+        <ion-col size="2" offset="2">
+          <ion-icon name="refresh" size="large" (click)="resetVentas()"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item *ngFor="let venta of ventas">{{venta}}</ion-item>
+  </ion-list>
+</ion-content> -->

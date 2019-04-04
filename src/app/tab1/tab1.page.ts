@@ -24,7 +24,7 @@ export class Tab1Page {
         this.ventas.push(this.venta);
         this.calcularTotal();
       });
-    }
+    }    
   }
 
   calcularTotal() {    
@@ -39,7 +39,7 @@ export class Tab1Page {
   }
 
   isValidForm(){
-    if(this.venta <= 0){
+    if(this.venta <= 0 || this.venta == undefined){
       return false;
     }
     else {

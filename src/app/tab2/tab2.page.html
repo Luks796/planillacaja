@@ -4,21 +4,25 @@
   </ion-title>
   <ion-item>
     <ion-label>Salida: </ion-label>
-    <ion-input type="number" [(ngModel)]="salida"></ion-input>
+    <ion-input type="number" [(ngModel)]="salida" clearInput></ion-input>
+    <ion-icon name="add-circle-outline" size="large" (click)="saveItem()"></ion-icon>
   </ion-item>
-
-
 </ion-header>
 
 <ion-content padding>
-  <ion-button (click)="saveItem()">Agregar</ion-button>
-  <ion-button (click)="resetSalidas()">Resetear</ion-button>
   <ion-list>
-    <ion-item>
-      <strong>
-        <ion-label>Total de gastos: {{totalSalidas}}</ion-label>
-      </strong>
-    </ion-item>
+      <ion-grid>
+      <ion-row>
+        <ion-col size="8">
+          <strong>
+              <ion-label>Total de gastos: {{totalSalidas}}</ion-label>
+          </strong>
+        </ion-col>
+        <ion-col size="2" offset="2">
+          <ion-icon name="refresh" size="large" (click)="resetSalidas()"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-item *ngFor="let salida of salidas"> {{salida}} </ion-item>
   </ion-list>
 </ion-content>
